@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Mon Identifiant SNCF</title>
+    <style>
+        body { margin: 0; padding: 0; background-color: #f4f7f8; font-family: Arial, sans-serif; }
+        .hidden { display: none !important; }
+        
+        /* Conteneur principal identique à ton image */
+        .main-container { min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; }
+        .card { display: flex; width: 950px; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.1); min-height: 550px; }
+        
+        /* Colonne Gauche (Bordeaux) */
+        .sidebar { width: 40%; background-color: #8a0e30; color: white; padding: 40px; display: flex; flex-direction: column; }
+        .sidebar hr { border: 0; border-top: 1px solid rgba(255,255,255,0.2); margin: 20px 0; }
+        
+        /* Colonne Droite (Formulaire) */
+        .content { width: 60%; padding: 50px; display: flex; flex-direction: column; justify-content: center; }
+        .logo-header { display: flex; align-items: center; margin-bottom: 40px; }
+        
+        /* Inputs et Boutons */
+        .input-group { margin-bottom: 20px; }
+        input { width: 100%; padding: 14px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; background: #ffffff; }
+        .btn-red { background-color: #9d0a28; color: white; padding: 12px 30px; border: none; border-radius: 25px; font-weight: bold; cursor: pointer; }
+        .btn-outline { background: white; border: 1px solid #9d0a28; color: #9d0a28; padding: 12px 30px; border-radius: 25px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<div class="main-container">
+    <div class="card">
+        <div class="sidebar">
+            <p style="font-weight: bold;">Mon Identifiant SNCF</p>
+            <h2 style="font-size: 24px; font-weight: normal;">Une solution d'identification par SNCF Voyageurs</h2>
+            <hr>
+            <img src="https://www.monidentifiant.sncf/assets/sncf-voyageurs-illustration-BW3xEiXd.svg" alt="" style="width: 100%; margin-top: auto;">
+        </div>
+
+        <div id="view-login" class="content">
+            <div class="logo-header">
+                <img src="https://www.monidentifiant.sncf/assets/sncf-voyageurs-Cib-DwWu.svg" width="120" alt="SNCF">
+                <h1 style="font-size: 18px; margin-left: 15px; color: #8a0e30;">Mon Identifiant SNCF</h1>
+            </div>
+            <h2>Bienvenue</h2>
+            <p style="color: #9c0c35; font-size: 14px; margin-bottom: 30px;">Connectez-vous pour accéder aux espaces clients des sites et applications SNCF et ses partenaires</p>
+            
+            <form onsubmit="return handleFinalSubmit(event)">
+                <div class="input-group">
+                    <label style="font-size: 12px; color: #9c0c35;">Adresse e-mail</label>
+                    <input type="email" id="login-email" required placeholder="Adresse e-mail (exemple@mail.com)">
+                </div>
+                <div class="input-group">
+                    <label style="font-size: 12px; color: #9c0c35;">Mot de passe</label>
+                    <input type="password" required>
+                </div>
+                <p><a href="#" onclick="switchView('view-forgot')" style="color: #9c0c35; text-decoration: none; font-size: 14px;">Mot de passe oublié ?</a></p>
+                <div style="display: flex; gap: 10px; margin-top: 20px;">
+                    <button type="submit" class="btn-red">Se connecter</button>
+                    <button type="button" class="btn-outline" onclick="window.location.href='https://www.sncf.com'">Retour</button>
+                </div>
+            </form>
+        </div>
+
+        <div id="view-forgot" class="content hidden">
+            <div class="logo-header">
+                <img src="https://www.monidentifiant.sncf/assets/sncf-voyageurs-Cib-DwWu.svg" width="120" alt="SNCF">
+                <h1 style="font-size: 18px; margin-left: 15px; color: #8a0e30;">Mon Identifiant SNCF</h1>
+            </div>
+            <h2 style="text-align: center;">Réinitialisation de votre mot de passe</h2>
+            <p style="text-align: center; color: #333; font-size: 15px; margin-bottom: 30px;">
+                Saisissez votre adresse e-mail et nous vous enverrons les instructions pour réinitialiser votre mot de passe.
+            </p>
+            
+            <div class="input-group" style="background: #f0f2f5; padding: 15px; border-radius: 4px;">
+                <label style="font-size: 12px; color: #555;">Adresse e-mail (exemple@mail.com)</label>
+                <input type="text" id="forgot-email" style="border:none; background:transparent; font-size: 16px;">
+            </div>
+
+            <div style="display: flex; flex-direction: row-reverse; justify-content: center; gap: 15px; margin-top: 30px;">
+                <button type="button" class="btn-red" onclick="handleFinalSubmit(event)">Continuer</button>
+                <button type="button" class="btn-outline" onclick="switchView('view-login')">Retour</button>
+            </div>
+        </div>
+
+        <div id="view-alert" class="content hidden" style="text-align: center; width: 100%;">
+            <h1 style="color: #d4001a; font-size: 40px;">🛑 Mordu !</h1>
+            <h2 style="margin-top: 0;">Ceci est un test de sécurité</h2>
+            <p>Vous venez de simuler la saisie de vos identifiants sur un faux site.</p>
+            <div style="background: #f9f9f9; padding: 20px; border-radius: 10px; text-align: left; margin: 20px 0;">
+                <strong>Comment éviter ce piège ?</strong>
+                <ul>
+                    <li>Vérifiez toujours l'URL : <em>monidentifiant.sncf.com</em> est le seul vrai.</li>
+                    <li>Méfiez-vous des emails demandant une "action immédiate".</li>
+                </ul>
+            </div>
+            <button class="btn-red" onclick="location.reload()">J'ai compris</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function switchView(viewId) {
+        document.getElementById('view-login').classList.add('hidden');
+        document.getElementById('view-forgot').classList.add('hidden');
+        document.getElementById('view-alert').classList.add('hidden');
+        
+        document.getElementById(viewId).classList.remove('hidden');
+    }
+
+    function handleFinalSubmit(e) {
+        if(e) e.preventDefault();
+        // Ici, tu pourrais envoyer les logs à ton outil de phishing
+        switchView('view-alert');
+        // On cache aussi la sidebar pour le message final
+        document.querySelector('.sidebar').classList.add('hidden');
+        document.querySelector('.card').style.width = "600px";
+        document.querySelector('.content').style.width = "100%";
+    }
+</script>
+
+</body>
+</html>
