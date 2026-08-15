@@ -15,8 +15,8 @@ Application web permettant aux voyageurs de se connecter, consulter leurs inform
 - **GitHub Pages** – Hébergement du site
 
 ##  Structure du projet
-info-voyageurs-connexion/
-│── index.html
+info-voyageurs-connexion
+/│── index.html
 │── style.css
 │── script.js
 └── assets/
