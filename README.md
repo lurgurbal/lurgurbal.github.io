@@ -1,34 +1,41 @@
 # Info Voyageurs – Connexion
 
-Application web permettant aux voyageurs de se connecter, consulter leurs informations, et accéder aux services liés à leur trajet.
+Application web permettant aux voyageurs de se connecter, de consulter leurs informations et d’accéder aux services liés à leur trajet.
 
 ## Fonctionnalités
+
 - Page de connexion simple et sécurisée
-- Interface claire pour les voyageurs
-- Structure adaptée pour une intégration dans un site plus large
-- Code organisé pour faciliter la maintenance et l’évolution
+- Interface claire et intuitive pour les voyageurs
+- Structure adaptée à une intégration dans un site plus large
+- Code organisé pour faciliter la maintenance et les évolutions futures
 
 ## Technologies utilisées
+
 - **HTML5** – Structure des pages
 - **CSS3** – Mise en forme et design
 - **JavaScript** – Interactions et logique de connexion
-- **GitHub Pages** – Hébergement du site
+- **GitHub Pages** – Hébergement et déploiement du site
 
-##  Structure du projet
-info-voyageurs-connexion
-/│── index.html
-│── style.css
-│── script.js
+## Structure du projet
+
+```text
+info-voyageurs-connexion/
+├── index.html
+├── style.css
+├── script.js
 └── assets/
+```
 
-Code
+## Déploiement
 
-## 🚀 Déploiement
-Le site est hébergé via **GitHub Pages**.  
-Toute modification poussée sur `main` est automatiquement publiée.
+Le site est hébergé via **GitHub Pages**.
+
+Toute modification poussée sur la branche `main` est automatiquement publiée, selon la configuration du dépôt GitHub Pages.
 
 ## Objectif du projet
-Créer une interface simple pour permettre aux voyageurs d’accéder rapidement à leurs informations, tout en gardant un design léger et facile à maintenir.
+
+L’objectif est de créer une interface simple, claire et accessible permettant aux voyageurs d’accéder rapidement à leurs informations et aux services liés à leur trajet, tout en conservant un design léger et une structure facile à maintenir.
 
 ## Auteur
+
 Projet développé par **lurgurbal**.
